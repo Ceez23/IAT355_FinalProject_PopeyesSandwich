@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Uneven Wave — AI &amp; Digital Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+
+<section class="hero">
+
+  <svg class="hero-bg-diagram"
+       viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+       fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g transform="translate(-80, 50)">
+
+   
+    <text x="42"  y="88"  font-family="JetBrains Mono,monospace" font-size="11"
+          fill="#1C1B18" opacity="0.50" transform="rotate(-12,42,88)">43.7%</text>
+    <text x="18"  y="160" font-family="JetBrains Mono,monospace" font-size="38"
+          fill="#1C1B18" opacity="0.50" transform="rotate(90,18,160)">77</text>
+    <text x="68"  y="230" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.70">n=27</text>
+    <text x="30"  y="310" font-family="JetBrains Mono,monospace" font-size="14"
+          fill="#1C1B18" opacity="0.60" transform="rotate(-6,30,310)">2022</text>
+    <text x="55"  y="420" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.60">r=0.61</text>
+
+    <!-- Top-right cluster -->
+    <text x="1310" y="72"  font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.50" transform="rotate(8,1310,72)">27.2%</text>
+    <text x="1360" y="130" font-family="JetBrains Mono,monospace" font-size="32"
+          fill="#1C1B18" opacity="0.45" transform="rotate(90,1360,130)">10</text>
+    <text x="1390" y="200" font-family="JetBrains Mono,monospace" font-size="11"
+          fill="#1C1B18" opacity="0.30">n=77</text>
+    <text x="1340" y="290" font-family="JetBrains Mono,monospace" font-size="13"
+          fill="#1C1B18" opacity="0.80" transform="rotate(5,1340,290)">54.8%</text>
+    <text x="1400" y="380" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.69" transform="rotate(-90,1400,380)">2025</text>
+
+    <!-- Bottom scattered -->
+    <text x="90"  y="750" font-family="JetBrains Mono,monospace" font-size="44"
+          fill="#1C1B18" opacity="0.145" transform="rotate(-8,90,750)">6</text>
+    <text x="160" y="820" font-family="JetBrains Mono,monospace" font-size="11"
+          fill="#1C1B18" opacity="0.30">33.2%</text>
+    <text x="290" y="868" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.50" transform="rotate(4,290,868)">2020</text>
+    <text x="980" y="870" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.79" transform="rotate(-3,980,870)">36.8%</text>
+    <text x="1180" y="860" font-family="JetBrains Mono,monospace" font-size="12"
+          fill="#1C1B18" opacity="0.50">p&lt;0.05</text>
+    <text x="1320" y="840" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.79" transform="rotate(-90,1320,840)">2024</text>
+
+    <!-- Mid scattered -->
+    <text x="185" y="310" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.49" transform="rotate(-15,185,310)">22.7%</text>
+    <text x="1200" y="160" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.79" transform="rotate(7,1200,160)">42.6%</text>
+    <text x="1100" y="240" font-family="JetBrains Mono,monospace" font-size="36"
+          fill="#1C1B18" opacity="0.64" transform="rotate(90,1100,240)">3</text>
+    <text x="250" y="760" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.60">μ=53.1</text>
+    <text x="1260" y="700" font-family="JetBrains Mono,monospace" font-size="11"
+          fill="#1C1B18" opacity="0.59" transform="rotate(-5,1260,700)">49.0%</text>
+    <text x="340"  y="130" font-family="JetBrains Mono,monospace" font-size="10"
+          fill="#1C1B18" opacity="0.88" transform="rotate(12,340,130)">σ=18.4</text>
+
+  
+    <line x1="140" y1="300" x2="140" y2="870"
+          stroke="#1C1B18" stroke-width="0.6" opacity="0.13"/>
+    <!-- X-axis baseline -->
+    <line x1="140" y1="870" x2="1360" y2="870"
+          stroke="#1C1B18" stroke-width="0.6" opacity="0.13"/>
+
+    <!-- Y-axis labels -->
+    <text x="128" y="390" font-family="JetBrains Mono,monospace" font-size="13"
+          fill="#1C1B18" text-anchor="end" opacity="0.18">80</text>
+    <text x="128" y="545" font-family="JetBrains Mono,monospace" font-size="13"
+          fill="#1C1B18" text-anchor="end" opacity="0.18">60</text>
+    <text x="128" y="700" font-family="JetBrains Mono,monospace" font-size="13"
+          fill="#1C1B18" text-anchor="end" opacity="0.18">40</text>
+    <text x="128" y="860" font-family="JetBrains Mono,monospace" font-size="13"
+          fill="#1C1B18" text-anchor="end" opacity="0.18">20</text>
+
+    <!-- Horizontal grid lines -->
+    <line x1="140" y1="390" x2="1360" y2="390" stroke="#1C1B18" stroke-width="0.4" opacity="0.08" stroke-dasharray="6 8"/>
+    <line x1="140" y1="545" x2="1360" y2="545" stroke="#1C1B18" stroke-width="0.4" opacity="0.08" stroke-dasharray="6 8"/>
+    <line x1="140" y1="700" x2="1360" y2="700" stroke="#1C1B18" stroke-width="0.4" opacity="0.08" stroke-dasharray="6 8"/>
+
+    <!-- X-axis year labels -->
+    <text x="140"  y="892" font-family="JetBrains Mono,monospace" font-size="14" fill="#1C1B18" text-anchor="middle" opacity="0.20">2020</text>
+    <text x="384"  y="892" font-family="JetBrains Mono,monospace" font-size="14" fill="#1C1B18" text-anchor="middle" opacity="0.20">2021</text>
+    <text x="628"  y="892" font-family="JetBrains Mono,monospace" font-size="14" fill="#1C1B18" text-anchor="middle" opacity="0.20">2022</text>
+    <text x="872"  y="892" font-family="JetBrains Mono,monospace" font-size="14" fill="#1C1B18" text-anchor="middle" opacity="0.20">2023</text>
+    <text x="1116" y="892" font-family="JetBrains Mono,monospace" font-size="14" fill="#1C1B18" text-anchor="middle" opacity="0.20">2024</text>
+    <text x="1360" y="892" font-family="JetBrains Mono,monospace" font-size="14" fill="#1C1B18" text-anchor="middle" opacity="0.20">2025</text>
+
+    <!-- Tick marks -->
+    <line x1="140"  y1="870" x2="140"  y2="882" stroke="#1C1B18" stroke-width="0.6" opacity="0.18"/>
+    <line x1="384"  y1="870" x2="384"  y2="882" stroke="#1C1B18" stroke-width="0.6" opacity="0.18"/>
+    <line x1="628"  y1="870" x2="628"  y2="882" stroke="#1C1B18" stroke-width="0.6" opacity="0.18"/>
+    <line x1="872"  y1="870" x2="872"  y2="882" stroke="#1C1B18" stroke-width="0.6" opacity="0.18"/>
+    <line x1="1116" y1="870" x2="1116" y2="882" stroke="#1C1B18" stroke-width="0.6" opacity="0.18"/>
+    <line x1="1360" y1="870" x2="1360" y2="882" stroke="#1C1B18" stroke-width="0.6" opacity="0.18"/>
+
+    <!-- Peak annotation at 2022 -->
+    <line x1="628" y1="310" x2="628" y2="868"
+          stroke="#1C1B18" stroke-width="0.5" stroke-dasharray="4 6" opacity="0.10"/>
+    <text x="636" y="326" font-family="JetBrains Mono,monospace" font-size="11"
+          fill="#1C1B18" opacity="0.16">▲ peak</text>
+
+    
+    <polyline
+      points="140,703 384,609 628,515 872,625 1116,703 1360,672"
+      stroke="#1C1B18" stroke-width="2.0"
+      stroke-linecap="round" stroke-linejoin="round"
+      fill="none" opacity="0.22"/>
+
+   
+    <polyline
+      points="140,718 384,624 628,519 872,781 1116,640 1360,609"
+      stroke="#1C1B18" stroke-width="2.0"
+      stroke-linecap="round" stroke-linejoin="round"
+      stroke-dasharray="14 8"
+      fill="none" opacity="0.17"/>
+
+  
+    <polyline
+      points="140,781 384,625 628,765 872,625 1116,852 1360,672"
+      stroke="#1C1B18" stroke-width="2.0"
+      stroke-linecap="round" stroke-linejoin="round"
+      stroke-dasharray="3 9"
+      fill="none" opacity="0.13"/>
+
+  
+    <text x="1368" y="668" font-family="JetBrains Mono,monospace" font-size="11" fill="#1C1B18" opacity="0.22">Gaming</text>
+    <text x="1368" y="605" font-family="JetBrains Mono,monospace" font-size="11" fill="#1C1B18" opacity="0.18">Marketing</text>
+    <text x="1368" y="668" font-family="JetBrains Mono,monospace" font-size="11" fill="#1C1B18" opacity="0.14">Media</text>
+  </g>
+  </svg>
+
+  <div class="hero-inner">
+    <h1 class="hero-title pop">The Uneven<br><em>Wave.</em></h1>
+    <p class="hero-sub pop">How AI spread through Gaming, Marketing, and Media — and what the data actually shows.</p>
+    <a class="hero-cta pop" href="#intro">
+      <span>Begin reading</span>
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+        <path d="M8 3v10M3 9l5 4 5-4"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<main>
+
+  <!-- ── INTRODUCTION ──────────────────────────────────────────── -->
+  <section class="chapter" id="intro">
+    <div class="chapter-card">
+      <span class="chapter-label">Introduction</span>
+      <h2>Artificial Intelligence as a New Foundation.</h2>
+      <div class="body-col">
+        <p>In 2020, most industries were just starting to experiment with AI. By 2025, it had become part of how things actually get made — games, ads, articles, all of it.</p>
+        <p>This project looks at what that shift actually looked like in practice. Not whether AI spread — it did — but what happened alongside it. Revenue, trust, job displacement, and regulation all moved in ways that weren't uniform, and the differences between industries turn out to be more interesting than the overall trend.</p>
+        <p>We looked at three industries across ten countries over six years. What we found is messier than the usual AI story, and more honest for it.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="chapter-rule">
+
+  <!-- ── CONTEXT ───────────────────────────────────────────────── -->
+  <section class="chapter" id="context">
+    <div class="chapter-card">
+      <span class="chapter-label">Context</span>
+      <h2>Three industries, ten countries, six years.</h2>
+      <div class="body-col">
+        <p>Gaming, Marketing, and Media were chosen because AI's role in each is visible and measurable — and because each industry used it differently.</p>
+        <p>Gaming used AI primarily for scale: generating environments, improving NPC behavior, speeding up quality assurance. Marketing used it for personalization: tailored copy, behavioral targeting, automated campaign management. Media used it for volume: faster drafts, generated images, more content with smaller teams.</p>
+        <p>The dataset tracks six variables from 2020 through 2025: AI adoption rate, revenue change, job displacement, consumer trust, human-AI collaboration rate, and AI-generated content volume. Because they started from different problems, the outcomes look quite different too — which is exactly what makes the comparison useful.</p>
+      </div>
+      <div class="industry-grid">
+        <div class="industry-card">
+          <span class="ind-bar gaming-bar"></span>
+          <h3>Gaming</h3>
+          <p>AI for scale — procedurally generated environments, NPC dialogue, faster QA. Studios wanted to build larger games without proportionally larger teams.</p>
+        </div>
+        <div class="industry-card">
+          <span class="ind-bar marketing-bar"></span>
+          <h3>Marketing</h3>
+          <p>AI for personalization — tailored copy at scale, behavioral targeting, automated campaign management. Smaller budgets reaching more specific audiences.</p>
+        </div>
+        <div class="industry-card">
+          <span class="ind-bar media-bar"></span>
+          <h3>Media</h3>
+          <p>AI for volume — faster drafts, generated images, synthetic video. Publishers matching growing content demand without growing editorial headcount.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="chapter-rule">
+
+  <!-- ── CHAPTER 01 — ADOPTION ─────────────────────────────────── -->
+  <section class="chapter" id="viz1">
+    <div class="chapter-card">
+      <span class="chapter-label">Chapter 01 — Adoption</span>
+      <h2>Adoption rose quickly, then gradually slowed.</h2>
+      <div class="body-col">
+        <p>All three industries increased AI adoption rapidly between 2020 and 2022. After that, growth slowed across the board. The early phase — picking up tools that were ready to use and integrating them into existing workflows — was relatively straightforward. What's left requires more significant organizational change, higher infrastructure investment, and navigating more resistance.</p>
+        <p>Media is the exception worth paying attention to. After peaking around 2022, adoption dropped noticeably in 2024 before recovering. That dip lines up with AI-generated journalism mistakes that got significant public attention, the writers' and actors' strikes that put AI directly into labour negotiations, and new regulatory pressure in the EU.</p>
+      </div>
+      <div class="viz-block" id="viz1-block">
+        <div class="viz-controls">
+          <label>View</label>
+          <select id="v1-country">
+            <option value="All">Global Average</option>
+            <option value="Australia">Australia</option>
+            <option value="Canada">Canada</option>
+            <option value="China">China</option>
+            <option value="France">France</option>
+            <option value="Germany">Germany</option>
+            <option value="India">India</option>
+            <option value="Japan">Japan</option>
+            <option value="South Korea">South Korea</option>
+            <option value="UK">UK</option>
+            <option value="USA">USA</option>
+          </select>
+        </div>
+        <div class="chart-frame"><div id="chart-v1"></div></div>
+        <span class="viz-caption">Dashed markers — 2022 peak (grey), 2024 Media dip (red). Click an industry in the legend to isolate it.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="chapter-rule">
+
+  <!-- ── CHAPTER 02 — REVENUE ──────────────────────────────────── -->
+  <section class="chapter" id="viz2">
+    <div class="chapter-card">
+      <span class="chapter-label">Chapter 02 — Revenue</span>
+      <h2>All three industries saw revenue grow. The differences are meaningful.</h2>
+      <div class="body-col">
+        <p>Media averaged a 43.7% revenue increase from AI-related changes over the period. Marketing came in at 36.8%, and Gaming at 33.2%.</p>
+        <p>A ten-point spread might not look dramatic, but it reflects real differences in how well AI mapped onto what each industry actually needed. For Media, AI directly accelerated content production, which is core to how the business works. For Gaming, AI's contributions — environment generation, dialogue, QA — are further removed from what drives revenue, which is player experience and retention. The tool fit the problem better in some places than others.</p>
+        <p>One number to keep in mind going into the next chapter: Gaming earned the lowest return here, but it also displaced the most workers. That tradeoff comes up again shortly.</p>
+      </div>
+      <div class="viz-block" id="viz2-block">
+        <div class="viz-controls">
+          <label>Year</label>
+          <select id="v2-year">
+            <option value="All">All Years</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+        <div class="chart-frame"><div id="chart-v2"></div></div>
+        <span class="viz-caption">Dashed rule — overall average across all three industries for the selected year. Hover any bar for exact values.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="chapter-rule">
+
+  <!-- ── CHAPTER 03 — TRUST ────────────────────────────────────── -->
+  <section class="chapter" id="viz3">
+    <div class="chapter-card">
+      <span class="chapter-label">Chapter 03 — Trust</span>
+      <h2>Consumer trust fell while adoption and revenue grew.</h2>
+      <div class="body-col">
+        <p>This is where the picture gets more complicated. In Media, consumer trust in AI dropped from 60% in 2020 to 49% in 2025 — a gradual decline that ran alongside five years of revenue growth. The two moved in opposite directions at the same time.</p>
+        <p>In Marketing, the change was sharper. Trust fell from 67.8% in 2020 to 34.4% in 2022, a 33-point drop in two years. That timing overlaps almost exactly with the rapid expansion of AI-generated personalized advertising. Consumers noticed something had changed, and their confidence in the industry dropped accordingly. Trust partially recovered after that, but never returned to 2020 levels.</p>
+        <p>The consistent pattern across all three industries: as AI adoption accelerated, consumer trust declined. Revenue gains are real, but they're accompanied by a growing skepticism that financial results alone won't resolve.</p>
+      </div>
+      <div class="viz-block" id="viz3-block">
+        <div class="viz-controls">
+          <label>Industry</label>
+          <select id="v3-industry">
+            <option value="Marketing">Marketing</option>
+            <option value="Media">Media</option>
+            <option value="Gaming">Gaming</option>
+          </select>
+        </div>
+        <div class="chart-frame"><div id="chart-v3"></div></div>
+        <span class="viz-caption">Solid line — AI Adoption Rate. Dashed line — Consumer Trust. The gap between them is the story.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="chapter-rule">
+
+  <!-- ── CHAPTER 04 — JOB DISPLACEMENT ─────────────────────────── -->
+  <section class="chapter" id="viz4">
+    <div class="chapter-card">
+      <span class="chapter-label">Chapter 04 — Job Displacement</span>
+      <h2>Gaming displaced the most workers and saw the smallest revenue return.</h2>
+      <div class="body-col">
+        <p>On average, Gaming saw 27.2% job displacement — the highest of the three industries — while producing the lowest average revenue gain at 33.2%. That's a small gap between what workers gave up and what the industry gained back.</p>
+        <p>Media looks different: 22.7% job displacement against 43.7% revenue growth. The displacement is still significant, but the financial return is proportionally larger.</p>
+        <p>The pattern in Gaming is the starkest example in this dataset of AI's costs and benefits being distributed unevenly. Workers absorbed a high level of disruption while the industry captured comparatively modest gains. Whether that reflects the nature of gaming's AI use cases, the structure of the industry, or something else in the data, the tradeoff stands out.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-val">27.2%</div><div class="stat-lab">Gaming job displacement</div></div>
+        <div class="stat"><div class="stat-val">33.2%</div><div class="stat-lab">Gaming revenue gain</div></div>
+        <div class="stat stat-accent"><div class="stat-val">Worst ratio</div><div class="stat-lab">of all three industries</div></div>
+      </div>
+      <div class="viz-block" id="viz4-block">
+        <div class="viz-controls">
+          <label>Year</label>
+          <select id="v4-year">
+            <option value="All">All Years</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+        <div class="chart-frame"><div id="chart-v4"></div></div>
+        <span class="viz-caption">Red dot — avg job displacement. Green dot — avg revenue gain. The bar spans the gap between them.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="chapter-rule">
+
+  <!-- ── CHAPTER 05 — REGULATION ───────────────────────────────── -->
+  <section class="chapter" id="viz5">
+    <div class="chapter-card">
+      <span class="chapter-label">Chapter 05 — Regulation</span>
+      <h2>Regulation had very different effects depending on the industry.</h2>
+      <div class="body-col">
+        <p>In Gaming, countries with strict AI regulation averaged 42.6% revenue growth — about ten points higher than the 32.3% seen in lenient-regulation environments. More regulation correlated with better financial outcomes, possibly because it pushed studios toward more deliberate, structured integration.</p>
+        <p>In Marketing, the relationship flips. Countries with lenient regulation averaged 54.8% revenue growth; countries with strict regulation averaged 27.1%. Marketing's core functions — behavioral targeting, data-driven personalization — depend heavily on what regulation allows. Fewer constraints meant more tools, and more tools meant more revenue.</p>
+        <p>Media stayed consistent across all three regulatory environments, landing around 40–45% regardless of how strict the rules were. Its revenue drivers aren't particularly sensitive to data regulation.</p>
+        <p>What this means practically: the same regulatory approach produces very different outcomes across industries. A policy designed with Marketing in mind could help Gaming while limiting Marketing significantly — or vice versa. There isn't a single regulatory stance that works evenly across all three.</p>
+      </div>
+      <div class="viz-block" id="viz5-block">
+        <div class="chart-frame"><div id="chart-v5"></div></div>
+        <span class="viz-caption">Each panel is one industry. Click a regulation type in the legend to highlight it across all panels simultaneously.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="chapter-rule">
+
+  <!-- ── SYNTHESIS ─────────────────────────────────────────────── -->
+  <section class="chapter" id="synthesis">
+    <div class="chapter-card">
+      <span class="chapter-label">Synthesis</span>
+      <h2>What the five topics add up to.</h2>
+      <div class="body-col">
+        <p>Each visualization answers a different part of the story. Together, they show how AI integration started in these industries between 2020 and 2025.</p>
+        <p>AI adoption rose quickly but started to slow down, which suggests that the earliest stage of implementation had already passed. Revenue grew across all three industries, but the outcomes were not the same: similar technologies produced different returns depending on how each industry used them. At the same time, consumer trust generally declined as adoption rose, and that gap remains unresolved. People in the Gaming industry faced the highest workforce displacement for the smallest financial return.</p>
+        <p>The industries that appear better positioned going forward are likely to be the ones that integrate it more carefully — paying closer attention to trust, workforce impact, and the long-term stability of the systems they build.</p>
+        <p>This project focuses on three of the ten industries in the dataset, so its findings are a starting point rather than a final answer. But the same questions raised here — about adoption, trust, displacement, and regulation — are likely relevant well beyond Media, Gaming, and Marketing.</p>
+      </div>
+      <div class="findings-grid" style="max-width:100%; margin-top:2rem; grid-template-columns:repeat(3,1fr);">
+        <div class="finding"><span class="finding-n">01</span><p>Adoption peaked around 2022. The easy phase is over — deeper integration requires harder organizational change.</p></div>
+        <div class="finding"><span class="finding-n">02</span><p>Revenue grew for all three, but the 10-point gap between Media and Gaming reveals how much context shapes outcomes.</p></div>
+        <div class="finding"><span class="finding-n">03</span><p>Trust fell as adoption rose — a credibility gap that financial performance alone will not close.</p></div>
+        <div class="finding"><span class="finding-n">04</span><p>Gaming's workers bore the highest displacement cost for the smallest return — the most unequal tradeoff in the data.</p></div>
+        <div class="finding"><span class="finding-n">05</span><p>Regulation helps Gaming, hurts Marketing, and barely touches Media. One-size policy will always misfire.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="chapter-rule">
+
+  <!-- ── CLOSING ───────────────────────────────────────────────── -->
+  <section class="chapter" id="closing" style="padding-bottom:140px;">
+    <div class="chapter-card">
+      <span class="chapter-label">Closing</span>
+      <h2>Where things stand.</h2>
+      <div class="body-col">
+        <p>AI spread through these three industries. The data is clear on that. What's less settled is whether the way it spread is working well — for industries, for workers, for consumers, for regulators.</p>
+        <p>Based on this data, the honest answer is partially. Revenue is up, but trust is down. Displacement is unevenly distributed, and regulation doesn't fit the industries it's trying to govern. The gains are real, but so are the costs, and they're not landing on the same people.</p>
+        <p>The question now isn't whether AI will continue to shape these industries. It will. The question is whether the next phase of integration is more thoughtful than the first one was.</p>
+      </div>
+      <footer class="site-footer">
+        <p>Source — <a href="https://www.kaggle.com/datasets/mohankrishnathalla/global-ai-adoption-and-workforce-impact-dataset" target="_blank" rel="noopener">Global AI Content Impact Dataset</a></p>
+        <p>IAT 355 · Simon Fraser University · Spring 2026</p>
+        <p style="margin-top:0.3rem;">Sai Arun Modekurti &nbsp;·&nbsp; Vithun Geetha Vinu  &nbsp;·&nbsp; Kaiyi Sun  &nbsp;·&nbsp;</p>
+        <p>Instructor — Alireza Karduni &nbsp;·&nbsp; TA — Mehdi Jahani </p>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="data/dataset.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/viz1.js"></script>
+<script src="js/viz2.js"></script>
+<script src="js/viz3.js"></script>
+<script src="js/viz4.js"></script>
+<script src="js/viz5.js"></script>
+<script src="js/animations.js"></script>
+</body>
+</html>
