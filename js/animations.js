@@ -1,6 +1,5 @@
-// ANIMATIONS
-
 const progressBar = document.getElementById('progress-bar');
+
 window.addEventListener('scroll', () => {
   const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
   progressBar.style.width = Math.min(pct, 100) + '%';
@@ -14,20 +13,15 @@ const CHART_SECTIONS = [
   { blockId: 'viz5-block', render: () => renderV5(),            rendered: false }
 ];
 
-
 const cardObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('revealed');
     cardObserver.unobserve(entry.target);
   });
-}, {
-  threshold: 0.02,
-  rootMargin: '0px 0px -30px 0px'
-});
+}, { threshold: 0.02, rootMargin: '0px 0px -30px 0px' });
 
 document.querySelectorAll('.chapter-card').forEach(el => cardObserver.observe(el));
-
 
 document.querySelectorAll('.hero .pop').forEach((el, i) => {
   el.style.opacity = '0';
@@ -39,7 +33,6 @@ document.querySelectorAll('.hero .pop').forEach((el, i) => {
   }, 60 + i * 120);
 });
 
-//  chart rendering
 const chartObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
