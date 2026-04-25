@@ -49,13 +49,20 @@ body::before {
   background-size: 60px 60px;
 }
 
-/* Scrolling color cloud — fills viewport from center outward */
 #scroll-gradient {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: -1; 
+
   pointer-events: none;
-  background: radial-gradient(ellipse 110% 110% at 50% 50%, rgba(210,120,50,0.28) 0%, rgba(210,120,50,0.10) 42%, transparent 68%);
+
+  background: linear-gradient(
+    to bottom,
+    #F0EBE0,
+    #E6DDCF
+  );
+
+  transition: background 0.4s ease-out;
 }
 
 h1, h2, h3 { font-family: var(--font-serif); color: var(--text-primary); }

@@ -40,6 +40,39 @@ function renderV5() {
     config: { ...CHART_CONFIG, facet: { spacing: 20 } }
   };
 
-  vegaEmbed('#chart-v5', spec, VEGAEMBED_OPTS);
+  vegaEmbed('#chart-v5', spec, VEGAEMBED_OPTS).then(() => {
+  animateV5Bars();
+});
+
+function animateV5Bars() {
+  const bars = document.querySelectorAll('#chart-v5 svg .mark-rect path, #chart-v5 svg .mark-rect rect');
+
+  bars.forEach((bar, i) => {
+    const height = bar.getBBox().height;
+
+    const minDuration = 800;
+    const maxDuration = 2800;
+    const normalized = Math.min(height / 280, 1);
+    const duration = maxDuration - normalized * (maxDuration - minDuration);
+
+    bar.style.transformBox = 'fill-box';
+    bar.style.transformOrigin = 'bottom';
+    bar.style.transform = 'scaleY(0)';
+    bar.style.transition = 'none';
+
+    bar.getBoundingClientRect();
+
+    setTimeout(() => {
+      bar.style.transition = `transform ${duration}ms ease-out ${i * 90}ms`;
+      bar.style.transform = 'scaleY(1)';
+    }, 50);
+  });
+}
+
+    vegaEmbed('#chart-v5', spec, VEGAEMBED_OPTS).then(() => {
+    animateV5Bars();
+  });
+
   v5Rendered = true;
+
 }

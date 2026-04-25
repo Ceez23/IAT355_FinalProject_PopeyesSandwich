@@ -83,8 +83,54 @@ function renderV4(year) {
     config: CHART_CONFIG
   };
 
-  vegaEmbed('#chart-v4', spec, VEGAEMBED_OPTS);
+  vegaEmbed('#chart-v4', spec, VEGAEMBED_OPTS).then(() => {
+  animateV4();
+});
   v4Rendered = true;
+}
+
+function animateV4() {
+  const rules = Array.from(document.querySelectorAll(
+    '#chart-v4 svg .mark-rule path, #chart-v4 svg .mark-rule line'
+  )).filter(rule => {
+    const box = rule.getBBox();
+    const strokeWidth = parseFloat(rule.getAttribute('stroke-width')) || 0;
+    return box.width > 30 && box.height < 10 && strokeWidth >= 6;
+  });
+
+  const greenPoints = Array.from(document.querySelectorAll(
+    '#chart-v4 svg .mark-symbol path, #chart-v4 svg .mark-symbol circle'
+  )).filter(point => point.getAttribute('fill') === '#10B981');
+
+  greenPoints.forEach(point => {
+    point.style.opacity = '0';
+    point.style.transition = 'none';
+  });
+
+  rules.forEach((rule, i) => {
+    const length = rule.getTotalLength();
+
+    rule.style.strokeDasharray = length;
+    rule.style.strokeDashoffset = length;
+    rule.style.transition = 'none';
+
+    rule.getBoundingClientRect();
+
+    setTimeout(() => {
+      rule.style.transition = `stroke-dashoffset 1200ms ease-out ${i * 150}ms`;
+      rule.style.strokeDashoffset = '0';
+    }, 50);
+
+    const green = greenPoints[i];
+    if (green) {
+      green.getBoundingClientRect();
+
+      setTimeout(() => {
+        green.style.transition = `opacity 350ms ease-out`;
+        green.style.opacity = '1';
+      }, 50 + i * 150 + 900);
+    }
+  });
 }
 
 document.getElementById('v4-year').addEventListener('change', e => renderV4(e.target.value));

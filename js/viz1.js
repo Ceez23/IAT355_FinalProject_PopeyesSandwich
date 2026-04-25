@@ -86,8 +86,45 @@ function renderV1(country) {
     config: CHART_CONFIG
   };
 
-  vegaEmbed('#chart-v1', spec, VEGAEMBED_OPTS);
+  vegaEmbed('#chart-v1', spec, VEGAEMBED_OPTS).then(() => {
+  animateV1Lines();
+});
   v1Rendered = true;
+}
+
+function animateV1Lines() {
+  const lines = document.querySelectorAll('#chart-v1 svg .mark-line path');
+
+  const points = document.querySelectorAll(
+    '#chart-v1 svg g.mark-symbol.role-mark path, #chart-v1 svg g.mark-symbol.role-mark circle'
+  );
+
+  lines.forEach((line, i) => {
+    const length = line.getTotalLength();
+
+    line.style.strokeDasharray = length;
+    line.style.strokeDashoffset = length;
+    line.style.transition = 'none';
+
+    line.getBoundingClientRect();
+
+    setTimeout(() => {
+      line.style.transition = `stroke-dashoffset 1800ms ease-out ${i * 200}ms`;
+      line.style.strokeDashoffset = '0';
+    }, 50);
+  });
+
+  points.forEach((point, i) => {
+    point.style.opacity = '0';
+    point.style.transition = 'none';
+
+    point.getBoundingClientRect();
+
+    setTimeout(() => {
+      point.style.transition = `opacity 450ms ease-out`;
+      point.style.opacity = '1';
+    }, 350 + i * 80);
+  });
 }
 
 document.getElementById('v1-country').addEventListener('change', e => renderV1(e.target.value));

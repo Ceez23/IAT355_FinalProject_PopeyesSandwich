@@ -53,8 +53,35 @@ function renderV2(year) {
     config: CHART_CONFIG
   };
 
-  vegaEmbed('#chart-v2', spec, VEGAEMBED_OPTS);
+  vegaEmbed('#chart-v2', spec, VEGAEMBED_OPTS).then(() => {
+  animateV2Bars();
+});
   v2Rendered = true;
+}
+
+function animateV2Bars() {
+  const bars = document.querySelectorAll('#chart-v2 svg .mark-rect path, #chart-v2 svg .mark-rect rect');
+
+  bars.forEach((bar, i) => {
+    const height = bar.getBBox().height;
+
+    const minDuration = 800;
+    const maxDuration = 2800;
+    const normalized = Math.min(height / 300, 1);
+    const duration = maxDuration - normalized * (maxDuration - minDuration);
+
+    bar.style.transformBox = 'fill-box';
+    bar.style.transformOrigin = 'bottom';
+    bar.style.transform = 'scaleY(0)';
+    bar.style.transition = 'none';
+
+    bar.getBoundingClientRect();
+
+    setTimeout(() => {
+      bar.style.transition = `transform ${duration}ms ease-out ${i * 120}ms`;
+      bar.style.transform = 'scaleY(1)';
+    }, 50);
+  });
 }
 
 document.getElementById('v2-year').addEventListener('change', e => renderV2(e.target.value));

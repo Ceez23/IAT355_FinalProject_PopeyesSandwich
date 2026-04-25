@@ -61,8 +61,42 @@ function renderV3(industry) {
     config: CHART_CONFIG
   };
 
-  vegaEmbed('#chart-v3', spec, VEGAEMBED_OPTS);
+  vegaEmbed('#chart-v3', spec, VEGAEMBED_OPTS).then(() => {
+  animateV3Lines();
+});
   v3Rendered = true;
+}
+
+function animateV3Lines() {
+  const lines = document.querySelectorAll('#chart-v3 svg .mark-line path');
+
+  const points = document.querySelectorAll(
+    '#chart-v3 svg g.mark-symbol.role-mark path, #chart-v3 svg g.mark-symbol.role-mark circle'
+  );
+
+  lines.forEach((line, i) => {
+    line.style.clipPath = 'inset(0 100% 0 0)';
+    line.style.transition = 'none';
+
+    line.getBoundingClientRect();
+
+    setTimeout(() => {
+      line.style.transition = `clip-path 1800ms ease-out ${i * 200}ms`;
+      line.style.clipPath = 'inset(0 0 0 0)';
+    }, 50);
+  });
+
+  points.forEach((point, i) => {
+    point.style.opacity = '0';
+    point.style.transition = 'none';
+
+    point.getBoundingClientRect();
+
+    setTimeout(() => {
+      point.style.transition = `opacity 450ms ease-out`;
+      point.style.opacity = '1';
+    },350 + i * 80);
+  });
 }
 
 document.getElementById('v3-industry').addEventListener('change', e => renderV3(e.target.value));

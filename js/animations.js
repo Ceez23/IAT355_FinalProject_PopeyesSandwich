@@ -1,8 +1,25 @@
+const scrollGradient = document.getElementById('scroll-gradient');
 const progressBar = document.getElementById('progress-bar');
 
 window.addEventListener('scroll', () => {
-  const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-  progressBar.style.width = Math.min(pct, 100) + '%';
+  const progress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+
+  if (progressBar) {
+    progressBar.style.width = Math.min(progress * 100, 100) + '%';
+  }
+
+  if (scrollGradient) {
+  const topColor = `hsl(${40 - progress * 6}, 30%, ${94 - progress * 20}%)`;
+const bottomColor = `hsl(${36 - progress * 8}, 35%, ${88 - progress * 25}%)`;
+
+  scrollGradient.style.background = `
+    linear-gradient(
+      135deg,
+      ${topColor},
+      ${bottomColor}
+    )
+  `;
+}
 }, { passive: true });
 
 const CHART_SECTIONS = [
